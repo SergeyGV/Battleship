@@ -13,7 +13,6 @@ class Battleship:
         self.down_track = []
         self.left_track = []
         self.right_track = []
-        self.hit_setup = False
         self.difficulty = 'Hard'
         self.player_ships_lengths = [2,3,3,3,4,5]
 
@@ -235,10 +234,10 @@ class Battleship:
                     else:
                         print('The computer shot at ' + chosen + ' and hit a ship!')
                         self.computer_hit_player = True
-                        self.hit_setup = True
                         self.last_hit = chosen
                         self.current_tracked_ship = [chosen]
                         self.computer_tracking = ['left', 'right', 'up', 'down']
+                        self.computer_track()
                         if self.difficulty == 'Hard':
                             spaces = self.avaible_tiles(self.last_hit)
                             if spaces[0] < min(self.player_ships_lengths):
@@ -249,9 +248,6 @@ class Battleship:
                                 self.computer_tracking.remove('down')
                     resolved = True
         else:
-            if self.hit_setup:
-                self.hit_setup = False
-                self.computer_track()
             resolved = False
             hit = False
             while not resolved:
